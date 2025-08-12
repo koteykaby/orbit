@@ -1,8 +1,10 @@
 #include "pch.h"
 
-#include "Macro.hpp"
-
 #include "Console.hpp"
+#include "Logger.hpp"
+
+#include "Macro.hpp"
+#include "Profile/Config.hpp"
 
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
@@ -12,7 +14,13 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
-        CreateConsole();
+        if (Config.EnableDebugConsole == true) {
+            CreateConsole();
+            logger.log("dllmain.cpp: Config.EnableDebugConsole = true");
+        } else {
+            logger.log("dllmain.cpp: Config.EnableDebugConsole = false | console is not initialized!");
+        }
+        logger.log("dllmain.cpp: ubiorbitapi_r2_loader.dll loaded to target application!");
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:
     case DLL_PROCESS_DETACH:
