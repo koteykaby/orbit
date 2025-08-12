@@ -5,7 +5,7 @@
 
 #include "Macro.hpp"
 
-#include "Profile/Config.hpp"
+#include "ProfileManager/Config.hpp"
 
 #include "Exports/SavegameInfo.hpp"
 
@@ -17,12 +17,15 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
-        if (Config.EnableDebugConsole == true) {
-            CreateConsole();
+        ProfileManager::InitConfig("orbit.ini");
+
+        if (ProfileManager::Config.EnableDebugConsole == true) {
+            DebugConsole::CreateConsole();
             logger.log("dllmain.cpp: Config.EnableDebugConsole = true");
         } else {
             logger.log("dllmain.cpp: Config.EnableDebugConsole = false | console is not initialized!");
         }
+        
         logger.log("dllmain.cpp: ubiorbitapi_r2_loader.dll loaded to target application!");
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:

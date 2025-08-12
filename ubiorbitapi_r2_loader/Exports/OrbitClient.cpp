@@ -1,6 +1,6 @@
 #include "Logger.hpp"
 
-#include "../Profile/Config.hpp"
+#include "../ProfileManager/Config.hpp"
 
 #include "OrbitClient.hpp"
 
@@ -68,7 +68,7 @@ void mg::orbitclient::OrbitClient::RemoveSavegame(unsigned int requestId,
 }
 
 void mg::orbitclient::OrbitClient::GetLoginDetails(unsigned int requestId,
-														  IGetLoginDetailsListener *loginDetailsListenerCallBack)
+													IGetLoginDetailsListener *loginDetailsListenerCallBack)
 {
 	logger.log("call!: mg::orbitclient::OrbitClient::GetLoginDetails RequestId: %d LoginDetailsListenerCallBack: %x", requestId,
 						reinterpret_cast<void *>(&loginDetailsListenerCallBack));
@@ -80,9 +80,9 @@ void mg::orbitclient::OrbitClient::GetLoginDetails(unsigned int requestId,
 		return;
 	}
 
-    logger.log("using account credentials: %s, %s, %s", Config.UbisoftId, Config.Password, Config.CdKey);
+    logger.log("using account credentials: %s, %s, %s", ProfileManager::Config.UbisoftId.c_str(), ProfileManager::Config.Password.c_str(), ProfileManager::Config.CdKey.c_str());
 
-	callBack(loginDetailsListenerCallBack, requestId, Config.UbisoftId.c_str(), Config.Password.c_str(), Config.CdKey.c_str());
+	callBack(loginDetailsListenerCallBack, requestId, ProfileManager::Config.UbisoftId.c_str(), ProfileManager::Config.Password.c_str(), ProfileManager::Config.CdKey.c_str());
 }
 
 
@@ -102,4 +102,10 @@ unsigned int mg::orbitclient::OrbitClient::GetRequestUniqueId()
 mg::orbitclient::OrbitClient::~OrbitClient()
 {
 	logger.log("call!: mg::orbitclient::OrbitClient::~OrbitClient");
+}
+
+const unsigned short* mg::orbitclient::OrbitClient::GetLocText(const unsigned short* fallback,
+                                                 			   const char*)
+{
+    return fallback;
 }

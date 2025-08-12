@@ -3,4 +3,6 @@
 #include <Windows.h>
 #include <iostream>
 
-void CreateConsole();
+namespace DebugConsole {
+    void CreateConsole();
+}

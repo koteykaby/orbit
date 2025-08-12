@@ -2,7 +2,7 @@
 
 #include "SavegameInfo.hpp"
 
-#include "../Profile/Config.hpp"
+#include "../ProfileManager/Config.hpp"
 
 mg::orbitclient::SavegameInfo::SavegameInfo(unsigned int id, unsigned long size, const std::wstring &name) {
     logger.log("call!: mg::orbitclient::SavegameInfo::SavegameInfo");
@@ -19,7 +19,7 @@ unsigned int mg::orbitclient::SavegameInfo::GetSavegameId() {
 
 unsigned int mg::orbitclient::SavegameInfo::GetProductId() {
     logger.log("call!: mg::orbitclient::SavegameInfo::GetProductId");
-    return Config.ProductId;
+    return ProfileManager::Config.ProductId;
 }
 
 inline unsigned int mg::orbitclient::SavegameInfo::GetSize()

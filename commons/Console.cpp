@@ -1,6 +1,7 @@
 #include "Console.hpp"
 
-void CreateConsole() {
+namespace DebugConsole {
+    void CreateConsole() {
     AllocConsole();
     SetConsoleTitleA("orbit");
 
@@ -9,4 +10,5 @@ void CreateConsole() {
     freopen_s(&stream, "CONOUT$", "w", stderr);
 
     std::cout << "orbit log output" << std::endl;
+}
 }

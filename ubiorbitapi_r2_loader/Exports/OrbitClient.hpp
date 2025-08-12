@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Profile/Config.hpp"
+#include "../ProfileManager/Config.hpp"
 
 #include "../Macro.hpp"
 
@@ -44,6 +44,9 @@ namespace mg {
             unsigned int GetInstallationErrorNum();
 
             void Update();
+
+            const unsigned short* GetLocText(const unsigned short* fallback,
+                                             const char*);
 
             ~OrbitClient();
         };
