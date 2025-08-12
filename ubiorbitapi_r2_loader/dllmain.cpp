@@ -4,7 +4,10 @@
 #include "Logger.hpp"
 
 #include "Macro.hpp"
+
 #include "Profile/Config.hpp"
+
+#include "Exports/SavegameInfo.hpp"
 
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
