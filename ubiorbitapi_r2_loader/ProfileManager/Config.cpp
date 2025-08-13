@@ -8,7 +8,7 @@ namespace ProfileManager {
     void LoadDefaultConfig() {
         Config.UbisoftId = "OrbitEmu";
         Config.Password = L"OrbitEmu";
-        Config.ProductId = 1000;
+        Config.ProductId = 40; // assassin's creed revelations
         Config.CdKey = "AAAA-AAAA-AAAA-AAAA";
         Config.EnableDebugConsole = false;
     }

@@ -22,13 +22,13 @@ unsigned int mg::orbitclient::SavegameInfo::GetProductId() {
     return ProfileManager::Config.ProductId;
 }
 
-inline unsigned int mg::orbitclient::SavegameInfo::GetSize()
+unsigned int mg::orbitclient::SavegameInfo::GetSize()
 {
 	logger.log("call!: mg::orbitclient::SavegameInfo::GetProductId");
 	return Size;
 }
 
-inline unsigned short const *mg::orbitclient::SavegameInfo::GetName()
+unsigned short const *mg::orbitclient::SavegameInfo::GetName()
 {
 	logger.log("call!: mg::orbitclient::SavegameInfo::GetName");
 	return reinterpret_cast<const unsigned short *>(&Name.c_str()[0]);
