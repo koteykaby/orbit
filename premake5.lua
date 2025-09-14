@@ -30,13 +30,13 @@ group "main"
         kind "SharedLib" -- dll
         language "C++"
         files { 
-            "commons/*.hpp",
-            "commons/*.cpp",
+            "shared/*.hpp",
+            "shared/*.cpp",
             "ubiorbitapi_r2_loader/**.hpp", 
             "ubiorbitapi_r2_loader/**.cpp", 
             "ubiorbitapi_r2_loader/**.h" 
         }  
-        includedirs { "commons" } 
+        includedirs { "shared" } 
         defines { 
             "UBIORBITAPI_R2_LOADER_EXPORT"
         }

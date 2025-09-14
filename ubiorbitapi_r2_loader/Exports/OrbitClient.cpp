@@ -1,111 +1,128 @@
-#include "Logger.hpp"
-
-#include "../ProfileManager/Config.hpp"
-
+#include "logger.hpp"
 #include "OrbitClient.hpp"
+
+#include "../macro.hpp"
+
+#include "../config.hpp"
 
 mg::orbitclient::OrbitClient::OrbitClient()
 {
-	logger.log("call!: mg::orbitclient::OrbitClient::OrbitClient");
+    LOG_INFO("Call");
 }
 
-void mg::orbitclient::OrbitClient::StartProcess(unsigned short *, unsigned short *, unsigned short *)
+mg::orbitclient::OrbitClient::~OrbitClient()
 {
-	logger.log("call!: mg::orbitclient::OrbitClient::StartProcess");
+    LOG_INFO("Call");
+}
+
+void mg::orbitclient::OrbitClient::StartProcess(unsigned short *a, unsigned short *b, unsigned short *c)
+{
+    LOG_INFO("Call [ a: {} b: {} c: {} ]", a, b, c);
 }
 
 void mg::orbitclient::OrbitClient::GetSavegameList(unsigned int requestId,
-												    IGetSavegameListListener *savegameListListenerCallBack,
-													unsigned int productId)
+                                                   IGetSavegameListListener *savegameListListenerCallBack,
+                                                   unsigned int productId)
 {
-	logger.log("call!: mg::orbitclient::OrbitClient::GetSavegameList RequestId: %d GetSavegameListListenerCallBack: %x ProductId: %d", requestId,
-						reinterpret_cast<void *>(&savegameListListenerCallBack), productId);
+    LOG_INFO("Call [ requestId: {} callback: {} productId: {} ]",
+             requestId, savegameListListenerCallBack, productId);
+
+    const auto callBack = reinterpret_cast<IGetSavegameListListener::CallBackPtrType>(**savegameListListenerCallBack->CallBackPtr);
+
+    if (callBack == nullptr) {
+        LOG_INFO("Callback is null");
+        return;
+    }
+
+    callBack(savegameListListenerCallBack, requestId, nullptr, 0);	
 }
 
 void mg::orbitclient::OrbitClient::GetSavegameReader(unsigned int requestId,
-													IGetSavegameReaderListener *savegameReaderListenerCallBack,
-													unsigned int productId, unsigned int saveGameId)
+                                                     IGetSavegameReaderListener *savegameReaderListenerCallBack,
+                                                     unsigned int productId, unsigned int saveGameId)
 {
-	logger.log("call!: mg::orbitclient::OrbitClient::GetSavegameReader RequestId: %d GetSavegameReaderListenerCallBack: %x ProductId: %d SaveGameId: %d", requestId,
-						reinterpret_cast<void *>(&savegameReaderListenerCallBack),
-						productId, saveGameId);
+    LOG_INFO("Call [ requestId: {} callback: {} productId: {} saveGameId: {} ]",
+             requestId, savegameReaderListenerCallBack, productId, saveGameId);
 }
 
-void mg::orbitclient::OrbitClient::Update() {} // do not log it!!!!!!!!!!
+void mg::orbitclient::OrbitClient::Update()
+{
+	// just spam.
+    //LOG_INFO("Call");
+}
 
 bool mg::orbitclient::OrbitClient::StartLauncher(unsigned int a, unsigned int b, char const *langCode, char const *arguments)
 {
-    logger.log("call!: mg::orbitclient::OrbitClient::StartLauncher");
+    LOG_INFO("Call [ a: {} b: {} langCode: {} arguments: {} ]", a, b, langCode, arguments);
     return false;
 }
 
 unsigned short *mg::orbitclient::OrbitClient::GetInstallationErrorString(char const *err)
 {
-	logger.log("call!: mg::orbitclient::OrbitClient::GetInstallationErrorString");
-	return nullptr;
+    LOG_INFO("Call [ err: {} ]", err);
+    return nullptr;
 }
 
 unsigned int mg::orbitclient::OrbitClient::GetInstallationErrorNum()
 {
-	logger.log("call!: mg::orbitclient::OrbitClient::GetInstallationErrorNum");
-	return 0;
+    LOG_INFO("Call");
+    return 0;
 }
 
 void mg::orbitclient::OrbitClient::GetSavegameWriter(unsigned int requestId,
-															IGetSavegameWriterListener *savegameWriterListenerCallBack,
-															unsigned int productId, unsigned int saveGameId, bool open)
+                                                     IGetSavegameWriterListener *savegameWriterListenerCallBack,
+                                                     unsigned int productId, unsigned int saveGameId, bool open)
 {
-	logger.log("call!: mg::orbitclient::OrbitClient::GetSavegameWriter RequestId: %s GetSavegameWriterListenerCallBack: %x ProductId: %d SaveGameId: %d", requestId,
-						reinterpret_cast<void *>(&savegameWriterListenerCallBack), productId, saveGameId);
+    LOG_INFO("Call [ requestId: {} callback: {} productId: {} saveGameId: {} open: {} ]",
+             requestId, savegameWriterListenerCallBack, productId, saveGameId, open);
 }
 
 void mg::orbitclient::OrbitClient::RemoveSavegame(unsigned int requestId,
-														 IRemoveSavegameListener *removeSavegameListenerCallBack,
-														 unsigned int productId, unsigned int saveGameId)
+                                                  IRemoveSavegameListener *removeSavegameListenerCallBack,
+                                                  unsigned int productId, unsigned int saveGameId)
 {
-	logger.log("call!: mg::orbitclient::OrbitClient::RemoveSavegame RequestId: %d RemoveSavegameListenerCallBack: %x", requestId,
-						reinterpret_cast<void *>(&removeSavegameListenerCallBack));
+    LOG_INFO("Call [ requestId: {} callback: {} productId: {} saveGameId: {} ]",
+             requestId, removeSavegameListenerCallBack, productId, saveGameId);
 }
 
 void mg::orbitclient::OrbitClient::GetLoginDetails(unsigned int requestId,
-													IGetLoginDetailsListener *loginDetailsListenerCallBack)
+                                                   IGetLoginDetailsListener *loginDetailsListenerCallBack)
 {
-	logger.log("call!: mg::orbitclient::OrbitClient::GetLoginDetails RequestId: %d LoginDetailsListenerCallBack: %x", requestId,
-						reinterpret_cast<void *>(&loginDetailsListenerCallBack));
+    LOG_INFO("Call [ requestId: {} callback: {} ]",
+             requestId, loginDetailsListenerCallBack);
 
-	const auto callBack = reinterpret_cast<IGetLoginDetailsListener::CallBackPtrType>(**loginDetailsListenerCallBack->CallBackPtr);
+    const auto callBack = reinterpret_cast<IGetLoginDetailsListener::CallBackPtrType>(**loginDetailsListenerCallBack->CallBackPtr);
 
-	if (callBack == nullptr)
-	{
-		return;
-	}
+    if (callBack == nullptr)
+    {
+        LOG_INFO("Callback is null");
+        return;
+    }
 
-    logger.log("using account credentials: %s, %s, %s", ProfileManager::Config.UbisoftId.c_str(), ProfileManager::Config.Password.c_str(), ProfileManager::Config.CdKey.c_str());
+    LOG_INFO("Using account credentials [ UbisoftId: {} Password: {} CdKey: {} ]",
+             config.username,
+             config.password,
+             config.cdKey);
 
-	callBack(loginDetailsListenerCallBack, requestId, ProfileManager::Config.UbisoftId.c_str(), ProfileManager::Config.Password.c_str(), ProfileManager::Config.CdKey.c_str());
+    callBack(loginDetailsListenerCallBack, requestId,
+             config.username.c_str(),
+             config.password.c_str(),
+             config.cdKey.c_str());
 }
 
-
-void mg::orbitclient::OrbitClient::GetOrbitServer(unsigned int requestId, IGetOrbitServerListener* callback, unsigned int, unsigned int)
+void mg::orbitclient::OrbitClient::GetOrbitServer(unsigned int requestId, IGetOrbitServerListener* callback, unsigned int a, unsigned int b)
 {
-    logger.log("call!: mg::orbitclient::OrbitClient::GetOrbitServer");
+    LOG_INFO("Call [ requestId: {} callback: {} a: {} b: {} ]", requestId, callback, a, b);
 }
-
 
 unsigned int mg::orbitclient::OrbitClient::GetRequestUniqueId()
 {
-	logger.log("call!: mg::orbitclient::OrbitClient::GetRequestUniqueId");
-	return RequestId++;
+    LOG_INFO("Call [ RequestId: {} ]", RequestId);
+    return RequestId++;
 }
 
-
-mg::orbitclient::OrbitClient::~OrbitClient()
+const unsigned short* mg::orbitclient::OrbitClient::GetLocText(const unsigned short* fallback, const char* textId)
 {
-	logger.log("call!: mg::orbitclient::OrbitClient::~OrbitClient");
-}
-
-const unsigned short* mg::orbitclient::OrbitClient::GetLocText(const unsigned short* fallback,
-                                                 			   const char*)
-{
+    LOG_INFO("Call [ fallback: {} textId: {} ]", fallback, textId);
     return fallback;
 }

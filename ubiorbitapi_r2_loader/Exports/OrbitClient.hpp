@@ -1,8 +1,6 @@
 #pragma once
 
-#include "../ProfileManager/Config.hpp"
-
-#include "../Macro.hpp"
+#include "../macro.hpp"
 
 #include "SavegameInfo.hpp"
 #include "SavegameReader.hpp"
@@ -14,13 +12,14 @@
 #include "Interfaces/IGetSavegameWriterListener.hpp"
 #include "Interfaces/IGetSavegameReaderListener.hpp"
 #include "Interfaces/IGetOrbitServerListener.hpp"
-#include "Interfaces/IGetOrbitServerListener.hpp"
+
+#include <memory>
+#include <vector>
 
 namespace mg {
     namespace orbitclient {
         class UBIORBITAPI_R2_LOADER_EXPORT OrbitClient {
             volatile int RequestId;
-
         public:
             OrbitClient();
 

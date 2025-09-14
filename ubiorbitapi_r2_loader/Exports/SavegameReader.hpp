@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Macro.hpp"
+#include "../macro.hpp"
 
 #include "Interfaces/ISavegameReadListener.hpp"
 

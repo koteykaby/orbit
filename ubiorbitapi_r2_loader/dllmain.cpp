@@ -1,13 +1,10 @@
 #include "pch.h"
 
-#include "Console.hpp"
-#include "Logger.hpp"
+#include "console.hpp"
+#include "logger.hpp"
 
-#include "Macro.hpp"
-
-#include "ProfileManager/Config.hpp"
-
-#include "Exports/SavegameInfo.hpp"
+#include "config.hpp"
+#include "macro.hpp"
 
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
@@ -17,16 +14,15 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
-        ProfileManager::InitConfig("orbit.ini");
+        init_config();
 
-        if (ProfileManager::Config.EnableDebugConsole == true) {
-            DebugConsole::CreateConsole();
-            logger.log("dllmain.cpp: Config.EnableDebugConsole = true");
-        } else {
-            logger.log("dllmain.cpp: Config.EnableDebugConsole = false | console is not initialized!");
+        if (config.ENABLE_DEBUG_CONSOLE == true)
+        {
+            shared::CreateDebugConsole();
         }
-        
-        logger.log("dllmain.cpp: ubiorbitapi_r2_loader.dll loaded to target application!");
+
+        LOG_INFO("ubiorbitapi_r2_loader.dll loaded");
+        LOG_INFO("Parsed details [ username: {} password: {} productId: {} cdKey: {} ]", config.username, config.password, config.productId, config.cdKey);
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:
     case DLL_PROCESS_DETACH:
