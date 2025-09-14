@@ -9,7 +9,7 @@ void init_config(const std::string& filename)
     
     if (file.read(ini))
     {
-        config.username = ini["Account"]["UbisoftID"];
+        config.username = ini["Account"]["UbisoftId"];
         
         std::string pass = ini["Account"]["Password"];
         config.password = std::wstring(pass.begin(), pass.end());
