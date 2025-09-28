@@ -4,6 +4,7 @@
 #include "../macro.hpp"
 
 #include "../config.hpp"
+#include "../helpers/save.hpp"
 
 mg::orbitclient::OrbitClient::OrbitClient()
 {
@@ -34,7 +35,16 @@ void mg::orbitclient::OrbitClient::GetSavegameList(unsigned int requestId,
         return;
     }
 
-    callBack(savegameListListenerCallBack, requestId, nullptr, 0);	
+    auto saves = get_saves();
+    std::vector<mg::orbitclient::SavegameInfo> info_list;
+    info_list.reserve(saves.size());
+
+    for (auto& s : saves) {
+        std::wstring wname(s.name.begin(), s.name.end());
+        info_list.emplace_back(s.id, s.size, wname);
+    }
+
+    callBack(savegameListListenerCallBack, requestId, info_list.data(), static_cast<unsigned int>(info_list.size()));
 }
 
 void mg::orbitclient::OrbitClient::GetSavegameReader(unsigned int requestId,

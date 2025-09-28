@@ -40,3 +40,5 @@ group "main"
         defines { 
             "UBIORBITAPI_R2_LOADER_EXPORT"
         }
+		
+		disablewarnings { "4251", "4005" }
